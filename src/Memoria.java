@@ -17,25 +17,25 @@ public class Memoria {
         ultimoBlocoModificado = null;
     }
 
-    public void deleteBloco(int indice) {
-        if (indice >= 0 && indice < blocos.size()) {
-            blocos.remove(indice);
-            ultimoBlocoModificado = null;
-            System.out.println("Bloco removido com sucesso.");
-        } else {
-            System.out.println("Índice inválido!");
-        }
-    }
-
     public List<Bloco> getBlocos() {
         return blocos;
     }
 
+    public Bloco getBloco(int indice) {
+        if (indice >= 0 && indice < blocos.size()) {
+            return blocos.get(indice);
+        } else {
+            throw new IndexOutOfBoundsException("Índice fora dos limites");
+        }
+    }
+
     public void atualizarBloco(Bloco blocoNovo) {
-        for (Bloco bloco : blocos) {
+        for (int i = 0; i < blocos.size(); i++) {
+            Bloco bloco = blocos.get(i);
             if (bloco.getId() == blocoNovo.getId()) {
-                bloco = blocoNovo;
-                ultimoBlocoModificado = bloco;
+                blocos.set(i, blocoNovo);
+                ultimoBlocoModificado = blocoNovo;
+                break;
             }
         }
     }
@@ -52,5 +52,4 @@ public class Memoria {
         idGerado++;
         return idGerado;
     }
-
 }
